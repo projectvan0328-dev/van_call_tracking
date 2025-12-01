@@ -5,137 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>전화 연결 중...</title>
   <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
-    .message {
-      text-align: center;
-      color: white;
-      padding: 40px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(10px);
-    }
-    .message p {
-      font-size: 18px;
-      margin: 0;
-    }
-    .spinner {
-      width: 40px;
-      height: 40px;
-      border: 4px solid rgba(255,255,255,0.3);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 20px;
-    }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-    #callLink {
-      display: none;
-    }
+    body{display:flex;justify-content:center;align-items:center;height:100vh;margin:0;font-family:-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)}
+    .m{text-align:center;color:#fff;padding:40px;border-radius:20px;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px)}
+    .m p{font-size:18px;margin:0}
+    .s{width:40px;height:40px;border:4px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 20px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    #c{display:none}
   </style>
 </head>
 <body>
-  <div class="message">
-    <div class="spinner"></div>
-    <p id="statusText">📞 전화 연결 중...</p>
-  </div>
-  
-  <!-- 숨겨진 전화 링크 -->
-  <a id="callLink" href="tel:"></a>
-  
+  <div class="m"><div class="s"></div><p id="t">📞 전화 연결 중...</p></div>
+  <a id="c" href="tel:"></a>
   <script>
-    // ============================================
-    // 📌 전화번호 목록
-    // ============================================
-    var PHONES = {
-      'busan_uro_manager': { number: '010-3407-5133', name: '부산여성비뇨의학과의원 실장' },
-      'busan_uro_clinic':  { number: '051-714-5210', name: '부산여성비뇨의학과의원 원내' },
-      'hiu_manager': { number: '010-3307-5133', name: '하이유외과성형외과 실장' },
-      'hiu_clinic':  { number: '051-714-5133', name: '하이유외과성형외과 원내' },
-      'yoursk_manager': { number: '010-3053-3201', name: '당신의피부과의원 실장' },
-      'yoursk_clinic':  { number: '051-924-1201', name: '당신의피부과의원 원내' },
-      'zero_suwon':   { number: '031-235-3737', name: '제로클리닉 수원점' },
-      'zero_incheon': { number: '032-435-3337', name: '제로클리닉 인천점' },
-      'zero_sinsa':   { number: '02-3447-1377', name: '제로클리닉 신사점' }
-    };
-
-    // ============================================
-    // 📌 Google Apps Script URL (설정 후 여기에 붙여넣기)
-    // ============================================
-    var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyBFiHep0m1W8elHAL6bIgbUVa0anZAbqg_mL_ehkRD2PCXGOtOtPfoRTNu3jugcBWZ/exec';
-
-    // ============================================
-    // URL 파라미터 가져오기
-    // ============================================
-    function getParam(name) {
-      var url = window.location.href;
-      name = name.replace(/[\[\]]/g, '\\$&');
-      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-      var results = regex.exec(url);
-      if (!results) return null;
-      if (!results[2]) return '';
-      return decodeURIComponent(results[2].replace(/\+/g, ' '));
-    }
-
-    // ============================================
-    // 메인 실행
-    // ============================================
-    var source = getParam('source') || 'direct';
-    var phoneKey = getParam('phone') || 'unknown';
-    var phoneInfo = PHONES[phoneKey] || null;
-
-    if (phoneInfo && phoneInfo.number) {
-      // 추적 데이터
-      var trackingData = {
-        timestamp: new Date().toISOString(),
-        source: source,
-        phoneKey: phoneKey,
-        phoneName: phoneInfo.name,
-        phoneNumber: phoneInfo.number,
-        userAgent: navigator.userAgent,
-        isMobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent),
-        screenWidth: window.screen.width,
-        screenHeight: window.screen.height,
-        referrer: document.referrer || 'direct'
-      };
-
-      // Google Sheets에 기록
-      if (SCRIPT_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
-        try {
-          var img = new Image();
-          img.src = SCRIPT_URL + '?data=' + encodeURIComponent(JSON.stringify(trackingData));
-        } catch(e) {}
+    var P={'a':['010-3407-5133','부산여성비뇨의학과의원 실장'],'b':['051-714-5210','부산여성비뇨의학과의원 원내'],'c':['010-3307-5133','하이유외과성형외과 실장'],'d':['051-714-5133','하이유외과성형외과 원내'],'e':['010-3053-3201','당신의피부과의원 실장'],'f':['051-924-1201','당신의피부과의원 원내'],'g':['031-235-3737','제로클리닉 수원점'],'h':['032-435-3337','제로클리닉 인천점'],'i':['02-3447-1377','제로클리닉 신사점']};
+    var U='https://script.google.com/macros/s/AKfycbyBFiHep0m1W8elHAL6bIgbUVa0anZAbqg_mL_ehkRD2PCXGOtOtPfoRTNu3jugcBWZ/exec';
+    function gP(n){var u=window.location.href;var r=new RegExp('[?&]'+n+'=([^&#]*)');var m=r.exec(u);return m?decodeURIComponent(m[1]):null}
+    function gO(){var u=navigator.userAgent;if(/iPhone|iPad|iPod/.test(u))return'iOS';if(/Android/.test(u))return'Android';if(/Windows/.test(u))return'Windows';if(/Mac/.test(u))return'macOS';return'기타'}
+    function gN(){var c=navigator.connection||navigator.mozConnection||navigator.webkitConnection;if(c&&c.effectiveType){var t=c.effectiveType;if(t==='4g')return'LTE/4G';if(t==='3g')return'3G';return t.toUpperCase()}return'-'}
+    function gR(){var v=localStorage.getItem('cv');if(v){return'재방문'}else{localStorage.setItem('cv','1');return'첫방문'}}
+    var s=gP('source')||'direct',p=gP('phone'),i=P[p];
+    if(i){
+      fetch('https://ipapi.co/json/').then(function(r){return r.json()}).then(function(d){sT(d)}).catch(function(){sT(null)});
+      function sT(d){
+        var t={timestamp:new Date().toISOString(),source:s,phoneName:i[1],phoneNumber:i[0],device:/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)?'📱 모바일':'💻 PC',referrer:document.referrer||'direct',ip:d?d.ip:'-',city:d?(d.city+', '+d.region):'-',os:gO(),network:gN(),revisit:gR()};
+        if(U!=='YOUR_GOOGLE_APPS_SCRIPT_URL_HERE'){try{var img=new Image();img.src=U+'?data='+encodeURIComponent(JSON.stringify(t))}catch(e){}}
+        var n=i[0].replace(/-/g,''),l=document.getElementById('c');l.href='tel:'+n;
+        setTimeout(function(){l.click()},300);
+        setTimeout(function(){window.location.href='tel:'+n},1000);
       }
-
-      // 전화번호에서 하이픈 제거
-      var cleanNumber = phoneInfo.number.replace(/-/g, '');
-      var telUrl = 'tel:' + cleanNumber;
-      
-      // 방법 1: a 태그 클릭 방식 (더 호환성 좋음)
-      var callLink = document.getElementById('callLink');
-      callLink.href = telUrl;
-      
-      setTimeout(function() {
-        callLink.click();
-      }, 300);
-      
-      // 방법 2: 백업 - 1초 후에도 안 되면 직접 이동
-      setTimeout(function() {
-        window.location.href = telUrl;
-      }, 1000);
-      
-    } else {
-      document.getElementById('statusText').textContent = '❌ 잘못된 전화번호 코드입니다: ' + phoneKey;
-    }
+    }else{document.getElementById('t').textContent='❌ 오류';}
   </script>
 </body>
 </html>
