@@ -25,13 +25,13 @@
     function gR(){var v=localStorage.getItem('cv');if(v){return'재방문'}else{localStorage.setItem('cv','1');return'첫방문'}}
     var s=gP('source')||'direct',p=gP('phone'),i=P[p];
     if(i){
-      fetch('https://ipapi.co/json/').then(function(r){return r.json()}).then(function(d){sT(d)}).catch(function(){sT(null)});
+      var n=i[0].replace(/-/g,''),l=document.getElementById('c');l.href='tel:'+n;
+      setTimeout(function(){l.click()},100);
+      setTimeout(function(){window.location.href='tel:'+n},300);
+      fetch('http://ip-api.com/json/?fields=query,city,regionName').then(function(r){return r.json()}).then(function(d){sT(d)}).catch(function(){sT(null)});
       function sT(d){
-        var t={timestamp:new Date().toISOString(),source:s,phoneName:i[1],phoneNumber:i[0],device:/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)?'📱 모바일':'💻 PC',referrer:document.referrer||'direct',ip:d?d.ip:'-',city:d?(d.city+', '+d.region):'-',os:gO(),network:gN(),revisit:gR()};
+        var t={timestamp:new Date().toISOString(),source:s,phoneName:i[1],phoneNumber:i[0],device:/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)?'📱 모바일':'💻 PC',referrer:document.referrer||'direct',ip:d?d.query:'-',city:d?(d.city+', '+d.regionName):'-',os:gO(),network:gN(),revisit:gR()};
         if(U!=='YOUR_GOOGLE_APPS_SCRIPT_URL_HERE'){try{var img=new Image();img.src=U+'?data='+encodeURIComponent(JSON.stringify(t))}catch(e){}}
-        var n=i[0].replace(/-/g,''),l=document.getElementById('c');l.href='tel:'+n;
-        setTimeout(function(){l.click()},300);
-        setTimeout(function(){window.location.href='tel:'+n},1000);
       }
     }else{document.getElementById('t').textContent='❌ 오류';}
   </script>
