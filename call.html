@@ -18,7 +18,7 @@
   <a id="c" href="tel:"></a>
   <script>
     var P={'a':['010-3407-5133','부산여성비뇨의학과의원 실장'],'b':['051-714-5210','부산여성비뇨의학과의원 원내'],'c':['010-3307-5133','하이유외과성형외과 실장'],'d':['051-714-5133','하이유외과성형외과 원내'],'e':['010-3053-3201','당신의피부과의원 실장'],'f':['051-924-1201','당신의피부과의원 원내'],'g':['031-235-3737','제로클리닉 수원점'],'h':['032-435-3337','제로클리닉 인천점'],'i':['02-3447-1377','제로클리닉 신사점'],'j':['010-8222-1339','테스트']};
-    var U='YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+    var U='https://script.google.com/macros/s/AKfycbyBFiHep0m1W8elHAL6bIgbUVa0anZAbqg_mL_ehkRD2PCXGOtOtPfoRTNu3jugcBWZ/exec';
     function gP(n){var u=window.location.href;var r=new RegExp('[?&]'+n+'=([^&#]*)');var m=r.exec(u);return m?decodeURIComponent(m[1]):null}
     function gO(){var u=navigator.userAgent;if(/iPhone|iPad|iPod/.test(u))return'iOS';if(/Android/.test(u))return'Android';if(/Windows/.test(u))return'Windows';if(/Mac/.test(u))return'macOS';return'기타'}
     function gN(){var c=navigator.connection||navigator.mozConnection||navigator.webkitConnection;if(c&&c.effectiveType){var t=c.effectiveType;if(t==='4g')return'LTE/4G';if(t==='3g')return'3G';return t.toUpperCase()}return'-'}
@@ -28,9 +28,9 @@
       var n=i[0].replace(/-/g,''),l=document.getElementById('c');l.href='tel:'+n;
       setTimeout(function(){l.click()},100);
       setTimeout(function(){window.location.href='tel:'+n},300);
-      fetch('http://ip-api.com/json/?fields=query,city,regionName').then(function(r){return r.json()}).then(function(d){sT(d)}).catch(function(){sT(null)});
+      fetch('https://ipwho.is/').then(function(r){return r.json()}).then(function(d){sT(d)}).catch(function(){sT(null)});
       function sT(d){
-        var t={timestamp:new Date().toISOString(),source:s,phoneName:i[1],phoneNumber:i[0],device:/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)?'📱 모바일':'💻 PC',referrer:document.referrer||'direct',ip:d?d.query:'-',city:d?(d.city+', '+d.regionName):'-',os:gO(),network:gN(),revisit:gR()};
+        var t={timestamp:new Date().toISOString(),source:s,phoneName:i[1],phoneNumber:i[0],device:/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)?'📱 모바일':'💻 PC',referrer:document.referrer||'direct',ip:d?d.ip:'-',city:d?(d.city+', '+d.region):'-',os:gO(),network:gN(),revisit:gR()};
         if(U!=='YOUR_GOOGLE_APPS_SCRIPT_URL_HERE'){try{var img=new Image();img.src=U+'?data='+encodeURIComponent(JSON.stringify(t))}catch(e){}}
       }
     }else{document.getElementById('t').textContent='❌ 오류';}
